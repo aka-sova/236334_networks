@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Homework no. 1</title>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        
+    </head>
+    <body class="vscode-light">
+        <h1 id="homework-no-1">Homework no. 1</h1>
+<h2 id="submission">Submission:</h2>
+<ul>
+<li>Alexander Shender 328626114</li>
+<li>Edo Agmon XXXXXXXX</li>
+</ul>
+<hr>
+<h2 id="question-1">Question #1</h2>
+<h3 id="a">(a)</h3>
+<p>The following chart shows the structure of the complete frame, where for each layer the according protocol is mentioned and the bytes number</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Protocol</th>
+<th>Header size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5</td>
+<td>http</td>
+<td>-</td>
+</tr>
+<tr>
+<td>4</td>
+<td>TCP</td>
+<td>20</td>
+</tr>
+<tr>
+<td>3</td>
+<td>IPv4</td>
+<td>20</td>
+</tr>
+<tr>
+<td>2</td>
+<td>MAC + CRC</td>
+<td>14 + 4</td>
+</tr>
+<tr>
+<td>1</td>
+<td>PHY</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>The following diagram shows it explicitly:</p>
+ <img src="file:///s:\236334_introduction_to_computer_networks\hws_git\hw_1\imgs\q1_1.png" width="" title="frame structure">
+<p>Thus, total size of the frame that the PHY layer receives is 1558 bytes.</p>
+<br/>
+<br/>
+<br/>
+<hr>
+<h3 id="b">(b)</h3>
+<p>For each of the paths, the following factors define the total amount of time required for the complete transaction:</p>
+<ol>
+<li>The transmission time</li>
+<li>The propagation time</li>
+<li>The parsing - reparsing time</li>
+</ol>
+<p>We calculate each one separately.</p>
+<p><strong>1. The transmission time : T<sub>1</sub></strong></p>
+<p>As calculated, the frame has a total length of 1558 bytes = 12464 bits</p>
+<p>Transmission time is calculated:</p>
+<pre><code class="language-python"><div>time = data size /  transmission speed
+</div></code></pre>
+<ul>
+<li>Cellphone &lt;-&gt; WiFI access point : 12464 / (20 * 10^6) = 0.6232 [ms]</li>
+<li>WiFI access point &lt;-&gt; R1 : 12464 /  (50 * 10^6) = 0.24928 [ms]</li>
+<li>R1 &lt;-&gt; R2 : 12464 /  (10 * 10^6) =  1.2464 [ms]</li>
+<li>R2 &lt;-&gt; R4 : 12464 /  (9 * 10^6) =  1.3849 [ms]</li>
+<li>R1 &lt;-&gt; R3 : 12464 /  (2 * 10^6) =  6.232 [ms]</li>
+<li>R3 &lt;-&gt; R4 : 12464 /  (2 * 10^6) =  6.232 [ms]</li>
+<li>R4 &lt;-&gt; Youtube server :  12464 /  (100 * 10^6) = 0.12464 [ms]</li>
+</ul>
+<p>So, we can calculate the total transmission time for each path.</p>
+<p>T<sub>1_path_1</sub> = 0.6232 + 0.24928 + 1.2464 + 1.3849 + 0.12464 = 3.62842 [ms] = 3.62842 * 10^-3 [s]</p>
+<p>T<sub>1_path_2</sub> = 0.6232 + 0.24928 + 6.232 + 6.232 + 0.12464 = 13.46112 [ms] = 13.46112 * 10^-3 [s]</p>
+<br/>
+<p><strong>2. The propagation time : T<sub>2</sub></strong></p>
+<p>Those times are negligible:</p>
+<ul>
+<li>Cellphone &lt;-&gt; WiFI access point</li>
+<li>WiFI access point &lt;-&gt; R1</li>
+<li>R4 &lt;-&gt; Youtube server</li>
+</ul>
+<p>For others:</p>
+<p>Speed of transmission  = (2/3) * (3 * 10^8) = 2 * 10^8  [m/s]</p>
+<ul>
+<li>R1 &lt;-&gt; R2 :    t = 3000  / (2 * 10^8) = 15 [us] = 15 * 10^-6 [s]</li>
+<li>R2 &lt;-&gt; R4 :    t = 10000 / (2 * 10^8) = 50 [us] = 50 * 10^-6 [s]</li>
+<li>R1 &lt;-&gt; R3 :    t = 6000 / (2 * 10^8) = 30 [us] = 30 * 10^-6 [s]</li>
+<li>R3 &lt;-&gt; R4 :    t = 5000 / (2 * 10^8) = 25 [us] = 25 * 10^-6 [s]</li>
+</ul>
+<p>Thus,</p>
+<p>T<sub>2_path_1</sub> = (15 + 50) * 10^-6 = 65 * 10^-6 [s] </br>
+T<sub>2_path_2</sub> = (30 + 25) * 10^-6 = 55 * 10^-6 [s]</p>
+<p><strong>3. The parsing - reparsing time : T<sub>3</sub></strong></p>
+<p>For each on the paths, this time is equal.</p>
+<p>Assumptions:</p>
+<ul>
+<li>The Wi-Fi Access Point, R1, R2, R3, R3 only deal with the first 3 layers and do not parse the Layer 4 (Transpot layer) and Layer 5 (application)</li>
+<li>The Youtube serve does re-parsing of layer 4 &amp; 5 (additionally to 1,2,3)</li>
+<li>The cellphone does parsing of layer 4 and 5 (additionally to 1,2,3)</li>
+<li>Each router does parsing and re-parsing of layer 2 and 3</li>
+</ul>
+<p>So we get the total contribution of parsing - reparsing:</p>
+<p>T<sub>3</sub> = T<sub>youtube</sub> + T<sub>R</sub> * 2 + T<sub>access_point</sub> + T<sub>cellphone</sub> </br>
+T<sub>3</sub> = (2 * 3) + (2 * 1 + 2 * 2) * 2 + (2 * 1 + 2 * 2) + (1 * 3) [us] = 6 + 12 + 6 + 3 = 27 [us] = 27 * 10^-6 [s]</p>
+<p><strong>TOTAL</strong></p>
+<p>Thus, in total we obtain the following times:</p>
+<p>Time<sub>path_1</sub> = T<sub>1_path_1</sub> + T<sub>2_path_1</sub> + T<sub>3</sub> = 3.62842 * 10^-3 + 65 * 10^-6 + 27 * 10^-6 [s] = 3.72042 * 10^-3 [s]</p>
+<p>Time<sub>path_2</sub> = T<sub>1_path_2</sub> + T<sub>2_path_2</sub> + T<sub>3</sub> =
+13.46112 * 10^-3 +  55 * 10^-6 +  27 * 10^-6 [s] = 13.54312 * 10^-3 [s]</p>
+<p>So, path 1 is faster (through R<sub>2</sub>). We can observe that the most decisive factor was the transmission speed. (its time is of an order higher than those of the propagation and parsing)</p>
+<hr>
+<h3 id="c">(c)</h3>
+<p>Now additional parsing and re-parsing of layer 4 header is added at the Wi-Fi access point. Thus, the total time for each path is increased by (1 + 2) [us] = 3 [us]</p>
+<p>Time<sub>path_1_new</sub> =  3.72042 * 10^-3 + 3 * 10^-6 [s] = 3.72072 * 10^-3 [s]</br>
+Time<sub>path_1_new</sub> =  13.54312 * 10^-3 + 3 * 10^-6 [s] = 13.54342 * 10^-3 [s]</p>
+<hr>
+<h2 id="question-2">Question #2</h2>
+<h3 id="a-1">(a)</h3>
+<p>Message length is 1 byte = 4 bits </br>
+To ensure we can fix 1 error, the Hamming distance has to be equal at least 3. </br></p>
+<p>Using the equation from the lecture:</p>
+ <img src="file:///s:\236334_introduction_to_computer_networks\hws_git\hw_1\imgs\q2_1.png" width="" title="frame structure">
+<p>where:</p>
+<ul>
+<li>m = 4</li>
+</ul>
+<p>we obtain that equation hold if:</p>
+<ul>
+<li>r = 3</li>
+</ul>
+<p>Thus, we have to add 3 Control bits to each frame, making the total message length equal 7.</br>
+The message will look in the following way, where C - control bits, D - data bits</p>
+ <img src="file:///s:\236334_introduction_to_computer_networks\hws_git\hw_1\imgs\q2_2.png" width="" title="frame structure">
+<hr>
+<h3 id="b-1">(b)</h3>
+<p>First, decoding HEX data to binary representation:</br>
+each HEX digit has 4 bits of data (range of 0x0 - 0xF, where 0xF = 1111)</p>
+<p>0xA09 = 1010 0000 1001</p>
+<p>digits at places 1, 2, 4, 8 are control digits. We have to check the parity of all the bits those bits are responsible for and verify.</p>
+<p>Again, with the help of the lecture:</p>
+ <img src="file:///s:\236334_introduction_to_computer_networks\hws_git\hw_1\imgs\q2_3.png" width="" title="frame structure">
+<p>Parity for each of those digits:</p>
+<ul>
+<li>1 : even (3, 9)  -&gt; parity = 0 : INCORRECT</li>
+<li>2 : uneven (3)   -&gt; parity = 1 : INCORRECT</li>
+<li>4 : uneven (12)  -&gt; parity = 1 : INCORRECT</li>
+<li>8 : even (9, 12) -&gt; parity = 0 : CORRECT</li>
+</ul>
+<p>As we can see, the parity is incorrect for Control bits 1, 2, 4. Thus, if we only have 1 error max. , the incorrect bit is 7.</p>
+<p>And the correct message is:</p>
+<p>1010 0010 1001 = 0xA29</p>
+<p>The original message that will be passed further then consists without the control bits and is:</p>
+<p>1001 1001 = 0x99</p>
+<hr>
+<h3 id="c-1">(c)</h3>
+<p>Now we require a full table of the control bits:</p>
+ <img src="file:///s:\236334_introduction_to_computer_networks\hws_git\hw_1\imgs\q2_4.png" width="" title="frame structure">
+<h4 id="a-1111-1110-0110-000">a. 1111 1110 0110 000</h4>
+<p>Parity for each of control digits:</p>
+<ul>
+<li>1 : even (3, 5, 7, 11)  -&gt; parity = 0 : INCORRECT</li>
+<li>2 : uneven (3, 6, 7, 10, 11)   -&gt; parity = 1 : CORRECT</li>
+<li>4 : uneven (5, 6, 7)  -&gt; parity = 1 : CORRECT</li>
+<li>8 : even (10 ,11) -&gt; parity = 0 : CORRECT</li>
+</ul>
+<p>The only incorrect control bit is '1', thus bit 1 is flipped.</p>
+<p>Correct word:</p>
+<p>0111 1110 0110 000</p>
+<h4 id="b-1111-1111-1111-111">b. 1111 1111 1111 111</h4>
+<p>All the control bits are responsible on 7 Data bits. All those bits are 1, making an uneven number of bits. Thus, the control bits should be Parity = 1 to make for legit word. This is what we see. So the word has no errors!</p>
+<h4 id="c-1001-1010-1001-111">c. 1001 1010 1001 111</h4>
+<p>Parity for each of control digits:</p>
+<ul>
+<li>1 : uneven (5, 7, 9, 13, 15)  -&gt; parity = 1 : CORRECT</li>
+<li>2 : uneven (7, 14, 15)   -&gt; parity = 1 : INCORRECT</li>
+<li>4 : even (5, 7, 12, 13, 14, 15)  -&gt; parity = 0 : INCORRECT</li>
+<li>8 : uneven (9, 12, 13, 14, 15) -&gt; parity = 1 : INCORRECT</li>
+</ul>
+<p>Bits 2, 4, 8 are incorrect. Thus, the incorrect bit in the message is 2 + 4 + 8 = 14.</p>
+<p>Correct word:</p>
+<p>1001 1010 1001 101</p>
+
+    </body>
+    </html>
