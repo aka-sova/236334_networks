@@ -68,7 +68,7 @@
 </tbody>
 </table>
 <p>The following diagram shows it explicitly:</p>
- <img src="file:///s:\236334_introduction_to_computer_networks\hws_git\hw_1\imgs\q1_1.png" width="" title="frame structure">
+ <img src="file:///s:\236334_introduction_to_computer_networks\hws_git\hw_1\imgs\q1_1.png" width=600 title="frame structure">
 <p>Thus, total size of the frame that the PHY layer receives is 1558 bytes.</p>
 <br/>
 <br/>
@@ -147,7 +147,7 @@ Time<sub>path_1_new</sub> =  13.54312 * 10^-3 + 3 * 10^-6 [s] = 13.54342 * 10^-3
 <p>Message length is 1 byte = 4 bits </br>
 To ensure we can fix 1 error, the Hamming distance has to be equal at least 3. </br></p>
 <p>Using the equation from the lecture:</p>
- <img src="file:///s:\236334_introduction_to_computer_networks\hws_git\hw_1\imgs\q2_1.png" width="" title="frame structure">
+ <img src="file:///s:\236334_introduction_to_computer_networks\hws_git\hw_1\imgs\q2_1.png" title="frame structure">
 <p>where:</p>
 <ul>
 <li>m = 4</li>
@@ -158,7 +158,7 @@ To ensure we can fix 1 error, the Hamming distance has to be equal at least 3. <
 </ul>
 <p>Thus, we have to add 3 Control bits to each frame, making the total message length equal 7.</br>
 The message will look in the following way, where C - control bits, D - data bits</p>
- <img src="file:///s:\236334_introduction_to_computer_networks\hws_git\hw_1\imgs\q2_2.png" width="" title="frame structure">
+ <img src="file:///s:\236334_introduction_to_computer_networks\hws_git\hw_1\imgs\q2_2.png" title="frame structure">
 <hr>
 <h3 id="b-1">(b)</h3>
 <p>First, decoding HEX data to binary representation:</br>
@@ -166,7 +166,7 @@ each HEX digit has 4 bits of data (range of 0x0 - 0xF, where 0xF = 1111)</p>
 <p>0xA09 = 1010 0000 1001</p>
 <p>digits at places 1, 2, 4, 8 are control digits. We have to check the parity of all the bits those bits are responsible for and verify.</p>
 <p>Again, with the help of the lecture:</p>
- <img src="file:///s:\236334_introduction_to_computer_networks\hws_git\hw_1\imgs\q2_3.png" width="" title="frame structure">
+ <img src="file:///s:\236334_introduction_to_computer_networks\hws_git\hw_1\imgs\q2_3.png" title="frame structure">
 <p>Parity for each of those digits:</p>
 <ul>
 <li>1 : even (3, 9)  -&gt; parity = 0 : INCORRECT</li>
@@ -182,7 +182,7 @@ each HEX digit has 4 bits of data (range of 0x0 - 0xF, where 0xF = 1111)</p>
 <hr>
 <h3 id="c-1">(c)</h3>
 <p>Now we require a full table of the control bits:</p>
- <img src="file:///s:\236334_introduction_to_computer_networks\hws_git\hw_1\imgs\q2_4.png" width="" title="frame structure">
+ <img src="file:///s:\236334_introduction_to_computer_networks\hws_git\hw_1\imgs\q2_4.png" title="frame structure">
 <h4 id="a-1111-1110-0110-000">a. 1111 1110 0110 000</h4>
 <p>Parity for each of control digits:</p>
 <ul>

@@ -23,7 +23,7 @@ The following chart shows the structure of the complete frame, where for each la
 
 The following diagram shows it explicitly:
 
- <img src="imgs/q1_1.png" width="" title="frame structure">
+ <img src="imgs/q1_1.png" width=600 title="frame structure">
 
  Thus, total size of the frame that the PHY layer receives is 1558 bytes.
 
@@ -143,7 +143,7 @@ To ensure we can fix 1 error, the Hamming distance has to be equal at least 3. <
 
 Using the equation from the lecture:
 
- <img src="imgs/q2_1.png" width="" title="frame structure">
+ <img src="imgs/q2_1.png" title="frame structure">
 
  where:
  - m = 4
@@ -155,7 +155,7 @@ we obtain that equation hold if:
 Thus, we have to add 3 Control bits to each frame, making the total message length equal 7.</br>
 The message will look in the following way, where C - control bits, D - data bits
 
- <img src="imgs/q2_2.png" width="" title="frame structure">
+ <img src="imgs/q2_2.png" title="frame structure">
 
 ___________________
 
@@ -170,7 +170,7 @@ digits at places 1, 2, 4, 8 are control digits. We have to check the parity of a
 
 Again, with the help of the lecture:
 
- <img src="imgs/q2_3.png" width="" title="frame structure">
+ <img src="imgs/q2_3.png" title="frame structure">
 
 Parity for each of those digits:
 
@@ -196,7 +196,7 @@ ___________________
 
 Now we require a full table of the control bits:
 
- <img src="imgs/q2_4.png" width="" title="frame structure">
+ <img src="imgs/q2_4.png" title="frame structure">
 
 #### a. 1111 1110 0110 000
 
