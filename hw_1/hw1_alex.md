@@ -3,7 +3,7 @@
 # Homework no. 1
 ## Submission:
 - Alexander Shender 328626114
-- Edo Agmon XXXXXXXX
+- PUT YOUR NAME
 
 ____________
 
@@ -237,5 +237,105 @@ Correct word:
 
 
 
+
+____________
+
+## Question #3 
+
+First, we convert all the codes to the binary notation (assuming the it's the MSB-first code).
+
+We obtain:
+
+1. $R_1$ = 0x0 (g=5) = 0b0 = $X^5$
+2. $R_2$ = 0x3B (g=6) = 0b1111011 = $X^6 + X^5 + X^4+ X^3 + X + 1$
+3. $R_3$ = 0x13 (g=5) = 0b110011 = $X^5 + X^4 + X + 1$ 
+
+### (a)
+
+In the case when there are more than 1 error, we should use $R_2$ or $R_3$, which have more than 1 term in their polynomial. $R_1$, for example, will not detect the error in the fifth bit. (it will have no remainder)
+
+### (b)
+
+In the case where we have 1, 3, or 5 errors - the common thing between those is that those are all **odd** numbers.
+
+Remembering the characteristic from the tutorial, if the $G(x)$ is divided by $(x+1)$ without any remainder, then **any odd** number of error bits will be discovered. We already know that $R_1$ will not divide $(x+1)$, so what is left to check are $R_2$ and $R_3$.
+
+#### $R_2$:
+
+```python
+1111011
+11
+______
+00
+  11
+  11
+  __
+  00
+    011
+     11
+     __
+     00
+```
+
+We can observe that for $R_2$ there is no remainder.
+
+
+
+
+#### $R_3$:
+```python
+110011
+11
+______
+00
+  0011
+    11
+    __
+    00
+```
+
+We can observe that for $R_3$ there is no remainder.
+
+Both $R_2$ and $R_3$ will detect **any** amount of odd error bits, thus, we can choose the more optimal divisor - the one that its CRC code requires less bits. This will be $R_3$, which will require only 5 bits. But Emil chose $R_2$, whatever.
+
+
+### (c)
+Looking at the ASCII table for 'c', 's' chars, we get:
+
+- c = 0x63
+- s = 0x73
+
+So the complete 'clean' message is 0x6373 = ‭0110 0011 0111 0011‬
+
+Now, calculating the $T(x) = x^gM(x) - [(x^gM(x) \%  G(x)]$
+
+
+
+### (d) 
+
+
+
+
+
+### (e)
+
+The message received is $T(x)$ = 0x1B0B = 0001 1011 0000 1011‬
+
+We know that the last 6 bits are the CRC check bits. Thus, the original message is: 0001 1011 00
+
+which is 0x6C is HEX. Which corresponds to the letter 'l' (small 'L').
+
+Checking the CRC code:
+
+```python 
+1101100
+1111011
+_______
+  10111
+
+```
+Comparing to the last 6 bits received in the message: 001011.
+
+We can see that those aren't the same bits, meaning that there was an error in transmission. So either 3 errors are in the CRC code, or there is an unknown amount of errors in the original message (different messages can yield the same CRC check)
 
 
