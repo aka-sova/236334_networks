@@ -321,21 +321,32 @@ Now, calculating the $T(x) = x^gM(x) - [(x^gM(x) \%  G(x)]$
 
 The message received is $T(x)$ = 0x1B0B = 0001 1011 0000 1011‬
 
-We know that the last 6 bits are the CRC check bits. Thus, the original message is: 0001 1011 00
+We have to divide it by the Divisor $R_2$ and see if we get any remainder left. If we do, then **for sure** there is an error inside.
 
-which is 0x6C is HEX. Which corresponds to the letter 'l' (small 'L').
-
-Checking the CRC code:
+Performing the division:
 
 ```python 
-1101100
+1101100001011‬
 1111011
 _______
-  10111
-
+  1011100
+  1111011
+  _______
+   1001111
+   1111011
+   _______
+    1101000
+    1111011
+    _______
+      1001111
+      1111011
+      _______
+       110100
 ```
-Comparing to the last 6 bits received in the message: 001011.
+We can see that the remainder is not equal 0.
 
-We can see that those aren't the same bits, meaning that there was an error in transmission. So either 3 errors are in the CRC code, or there is an unknown amount of errors in the original message (different messages can yield the same CRC check)
+This means there is an error inside the message and we have to resend it. There is no way to detect which bit exactly was erroneous, we also don't know how many erroneous bits were received.
+
+
 
 

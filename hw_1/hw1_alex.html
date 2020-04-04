@@ -259,17 +259,27 @@ ______
 <h3 id="d">(d)</h3>
 <h3 id="e">(e)</h3>
 <p>The message received is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">T(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span> = 0x1B0B = 0001 1011 0000 1011‬</p>
-<p>We know that the last 6 bits are the CRC check bits. Thus, the original message is: 0001 1011 00</p>
-<p>which is 0x6C is HEX. Which corresponds to the letter 'l' (small 'L').</p>
-<p>Checking the CRC code:</p>
-<pre><code class="language-python"><div><span class="hljs-number">1101100</span>
+<p>We have to divide it by the Divisor <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>R</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">R_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and see if we get any remainder left. If we do, then <strong>for sure</strong> there is an error inside.</p>
+<p>Performing the division:</p>
+<pre><code class="language-python"><div><span class="hljs-number">1101100001011</span>‬
 <span class="hljs-number">1111011</span>
 _______
-  <span class="hljs-number">10111</span>
-
+  <span class="hljs-number">1011100</span>
+  <span class="hljs-number">1111011</span>
+  _______
+   <span class="hljs-number">1001111</span>
+   <span class="hljs-number">1111011</span>
+   _______
+    <span class="hljs-number">1101000</span>
+    <span class="hljs-number">1111011</span>
+    _______
+      <span class="hljs-number">1001111</span>
+      <span class="hljs-number">1111011</span>
+      _______
+       <span class="hljs-number">110100</span>
 </div></code></pre>
-<p>Comparing to the last 6 bits received in the message: 001011.</p>
-<p>We can see that those aren't the same bits, meaning that there was an error in transmission. So either 3 errors are in the CRC code, or there is an unknown amount of errors in the original message (different messages can yield the same CRC check)</p>
+<p>We can see that the remainder is not equal 0.</p>
+<p>This means there is an error inside the message and we have to resend it. There is no way to detect which bit exactly was erroneous, we also don't know how many erroneous bits were received.</p>
 
     </body>
     </html>
