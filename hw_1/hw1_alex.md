@@ -1,7 +1,8 @@
 
-
 # Homework no. 1
-## Submission:
+
+## Submission
+
 - Alexander Shender 328626114
 - PUT YOUR NAME
 
@@ -143,7 +144,7 @@ To ensure we can fix 1 error, the Hamming distance has to be equal at least 3. <
 
 Using the equation from the lecture:
 
- <img src="imgs/q2_1.png" title="frame structure">
+ <img src="imgs/q2_1.png" width = 200, title="frame structure">
 
  where:
  - m = 4
@@ -155,7 +156,7 @@ we obtain that equation hold if:
 Thus, we have to add 3 Control bits to each frame, making the total message length equal 7.</br>
 The message will look in the following way, where C - control bits, D - data bits
 
- <img src="imgs/q2_2.png" title="frame structure">
+ <img src="imgs/q2_2.png" width = 300, title="frame structure">
 
 ___________________
 
@@ -170,7 +171,7 @@ digits at places 1, 2, 4, 8 are control digits. We have to check the parity of a
 
 Again, with the help of the lecture:
 
- <img src="imgs/q2_3.png" title="frame structure">
+ <img src="imgs/q2_3.png" width = 300, title="frame structure">
 
 Parity for each of those digits:
 
@@ -196,7 +197,7 @@ ___________________
 
 Now we require a full table of the control bits:
 
- <img src="imgs/q2_4.png" title="frame structure">
+ <img src="imgs/q2_4.png" width=400, title="frame structure">
 
 #### a. 1111 1110 0110 000
 
@@ -346,6 +347,136 @@ _______
 We can see that the remainder is not equal 0.
 
 This means there is an error inside the message and we have to resend it. There is no way to detect which bit exactly was erroneous, we also don't know how many erroneous bits were received.
+
+
+
+
+____________
+
+## Question #4
+
+
+### (a) 
+
+We are given: the probability of 1 erroneous bit: $p = 5 \times 10^6$.
+
+The probability of a successful bit: $(1-p)$
+
+One frame contains 12500 bytes, which is $10^5$ bits.
+The chance to receive the frame with no error, meaning all bits are received correctly, is:
+
+<span style="font-size:16px;">
+
+$$P_{success} = (1-p)^{10^5} \approx 0.607$$
+
+</span>
+
+Likewise, the chance to receive 1 bit with error is:
+
+<span style="font-size:16px;">
+
+$$P_{one\_bit\_error} = (10^5)\times(p\times(1-p)^{10^5-1}) \approx 0.303$$
+
+</span>
+
+where we multiplied the probability of some bit to be erroneous by a number of total bits.
+
+
+### (b)
+
+We are given a new measure, we denote it $S_{ch}$:
+
+<span style="font-size:16px;">
+
+$$S_{ch} = \frac{bits\ number\ in\ a\ frame}{frame\ average\ length} = \frac{N_{bits}}{F_v}$$
+
+</span>
+
+We consider each case separately:
+
+#### (1) 
+
+**Correction** code adds 100 bits, and requires no additional sendings to be performed, thus:
+
+<span style="font-size:16px;">
+
+$$S_{ch1} = \frac{10^5}{10^5 + 100} \approx 0.999$$
+
+</span>
+
+
+
+**Detection** code adds 10 bits, but that means we will have to send the erroneous frame again (which is successful by exercise condition). We define M - random variable symbolizing the amount of messages sent. Due to the geometric probability:
+
+<span style="font-size:16px;">
+
+$$E(M) = \frac{1}{P_{successful\ frame}} = \frac{1}{0.607} = 1.65$$
+
+</span>
+
+Thus, the average frame length and the throughtput:
+
+<span style="font-size:16px;">
+
+$$F_v = E(M) \times (10^5 + 10) = 1.65 \times (10^5 + 10) = 165016.5 [bits] $$
+
+$$S_{ch2} = \frac{10^5}{165016.5} \approx 0.606  $$
+
+</span>
+
+Consequency, we obtain:
+
+<span style="font-size:16px;">
+
+$$S_{ch1} > S_{ch2}$$
+
+</span>
+
+Which means that throughput of the correction code is higher and on average more bits will be transmitted in the same amount of time.
+
+
+#### (2)
+
+Doing the same calculations as before, briefly:
+
+**Correction**
+
+<span style="font-size:16px;">
+
+$$S_{ch1} = \frac{10^5}{10^5 + 29000} \approx 0.775$$
+
+</span>
+
+
+**Detection**
+
+<span style="font-size:16px;">
+
+$$F_v = E(M) \times (10^5 + 500) = 1.65 \times (10^5 + 500) = 165825 [bits] $$
+
+$$S_{ch2} = \frac{10^5}{165825} \approx 0.603 $$
+
+</span>
+
+And we get:
+
+<span style="font-size:16px;">
+
+$$S_{ch1} > S_{ch2}$$
+
+</span>
+
+Which means that still, the **correction** code gives better throughput.
+
+
+
+
+
+
+
+
+
+
 
 
 
