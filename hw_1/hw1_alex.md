@@ -314,7 +314,25 @@ Now, calculating the $T(x) = x^gM(x) - [(x^gM(x) \%  G(x)]$
 
 ### (d) 
 
+We are required we check whether the errors of the type: 
 
+$$E(x) = x^{k+7} + x^k = x^k (x^7 + 1)$$
+
+will be detected. We have to check whether the $(x^7 + 1)$ will divide $R_2$ with no remainder. 
+
+```python
+10000001
+1111011
+______
+01110111
+ 1111011
+ _______
+ 0001100
+ _______
+    1100
+```
+
+We can see that there is a remainder. Which means that we do detect the error. 
 
 
 
