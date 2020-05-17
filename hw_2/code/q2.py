@@ -84,12 +84,3 @@ S_GBN_2 = throughput_GBN_2(p)
 
 print_var("S_GBN")
 print_var("S_GBN_2")
-
-
-
-
-
-
-
-
-
