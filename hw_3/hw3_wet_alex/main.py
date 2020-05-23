@@ -8,7 +8,7 @@ from my_queue import PriorityQueue
 import random
 
 
-Results = namedtuple('Results', 'Number_of_tested, Number_of_arrived_but_left, Time_of_treatment_finish')
+Results = namedtuple('Results', 'Number_of_tested, Number_of_arrived_but_left, Time_of_treatment_finish, Time_in_each_state, Probability_in_each_state')
 
 def generate_time(exp_variable):
     """ Will generate the next event time based on exponential distribution"""
@@ -49,10 +49,20 @@ class Test_taken(Event):
 class Environment():
     def __init__(self, num_test_points : int, probs : []):
         self.current_time : int = 0
-        self.current_states = {}        # number of people in each test place
+        self.current_states = {}        # state = number of people in each test place. Dict of state for each test point
+        self.times_in_states = {}       # dict for each test point calculating the sum of time for every state
+        self.last_state_times = {}      # dict with the timestamp of the last event for each test point
 
         for n in range(num_test_points):
             self.current_states[n] = 0
+            self.last_state_times[n] = 0
+            self.times_in_states[n] = {}
+
+            for state_num in range(len(probs)):
+                self.times_in_states[n][state_num] = 0
+
+
+
 
         self.people_tested : int = 0
         self.people_came_and_left : int = 0
@@ -75,6 +85,13 @@ class Environment():
 
             if ran_var < prob_to_stay:
                 # the visitor stayed for test
+
+                
+                # calculate the time from previous state
+                time_in_previous_state = next_event.time - self.last_state_times[next_event.location]
+                self.times_in_states[next_event.location][self.current_states[next_event.location]] += time_in_previous_state 
+                self.last_state_times[next_event.location] = next_event.time
+                
                 self.current_states[next_event.location] += 1
                 return True
             else:
@@ -84,6 +101,13 @@ class Environment():
 
         else:
             # test taken
+
+            # calculate the time from previous state
+            time_in_previous_state = next_event.time - self.last_state_times[next_event.location]
+            self.times_in_states[next_event.location][self.current_states[next_event.location]] += time_in_previous_state 
+            self.last_state_times[next_event.location] = next_event.time
+
+            # change the current state
             self.current_states[next_event.location] -= 1
             self.people_tested += 1
             return True
@@ -180,9 +204,17 @@ class Simulator():
                     self.history_q.insert(new_event)
 
             
+        # calculating the total times in states among all the tps
+        total_times = {}
+        total_probabilities = {}
+
+        for state_idx in range(len(sim.probs)):
+            total_times[state_idx] = sum(env.times_in_states[tp][state_idx] for tp in range(sim.num_test_points))/sim.num_test_points
+            total_probabilities[state_idx] = total_times[state_idx] / env.current_time
+        # calculating the probabilities
 
 
-        results = Results(env.people_tested, env.people_came_and_left, env.current_time)
+        results = Results(env.people_tested, env.people_came_and_left, env.current_time, total_times, total_probabilities)
         return results
         
 
